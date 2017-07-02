@@ -3,6 +3,13 @@ var Article = require('./../models/Article.js');
 var errorHandler = require('./errors.server.controller');
 var _ = require('lodash');
 
+function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+
 module.exports.list = function(req, res) {
   Article.find(function(err, data) {
     if (err) {
@@ -12,7 +19,8 @@ module.exports.list = function(req, res) {
   			});
     } else {
       console.log("api called");
-
+      
+      data = sortByKey(data, 'created');
       res.status(200).send(data);
     }
   });
