@@ -10,6 +10,21 @@ module.exports = function(app){
   app.route('/api/products/:productId')
 	.get(products.read)
   .delete(users.requiresLogin, products.delete);
+  
+  app.route('/products/edit')
+	.get(products.edit);
+  
+  app.route('/products/list')
+	.get(products.listView);
+  
+  app.route('/products/view')
+	.get(products.view);
+
+  
+  app.route('/products/new')
+	.get(products.new);
+	
+    
 
 	app.route('/api/products/edit/:productId')
 	.get(products.read)
